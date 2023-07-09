@@ -11,36 +11,31 @@
  * WOBLESSE K. Déo Gratias
  * 07 juillet 2023
 */
-MyWindow::MyWindow(QWidget *parent) : QWidget(parent) {
+MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
 
     // Quelques paramétrages perso
     this->setMinimumSize(620, 420);
 
     // La barre de menu
-    menuBar = new QMenuBar(this);
+    menuBar = new QMenuBar();
+    this->setMenuBar(menuBar);
 
     // Les menus de la menuBar
-    QMenu *menuFichier = new QMenu("Fichier");
-    QMenu *menuUpdate = new QMenu("Mise à jour");
-    QMenu *menuEdit = new QMenu("Edition");
-
-    // Les onglets
-    //OngletFichier *ongletFichier = new OngletFichier(this);
-    //ongletFichier->setGeometry(0, 30, 620, 370);
+    menuFichier = new QMenu("Fichier");
+    menuUpdate = new QMenu("Mise à jour");
+    menuEdit = new QMenu("Edition");
 
 
-    /*
-     * les actions sur les menus
-    */
+            //les actions sur les menus
     // Le menu Fichier
-    QAction *actionQuitter = menuFichier->addAction("Quitter");
+    actionQuitter = menuFichier->addAction("Quitter");
     // Le menu de Mise à jour
-    QAction *actionArticle = menuUpdate->addAction("Article");
-    QAction *actionClient = menuUpdate->addAction("Client");
-    QAction *actionFacture = menuUpdate->addAction("Facture");
+    actionArticle = menuUpdate->addAction("Article");
+    actionClient = menuUpdate->addAction("Client");
+    actionFacture = menuUpdate->addAction("Facture");
     // Le menu Edition
-    QAction *actionListeClient = menuEdit->addAction("Liste Clients");
-    QAction *actionListeArticle = menuEdit->addAction("Liste Articles");
+    actionListeArticle = menuEdit->addAction("Liste Articles");
+    actionListeClient = menuEdit->addAction("Liste Clients");
 
 
     // Connexion des slots aux actions
@@ -52,8 +47,29 @@ MyWindow::MyWindow(QWidget *parent) : QWidget(parent) {
     menuBar->addMenu(menuEdit);
 
     // partie de test
-    UpdateClient * client = new UpdateClient();
 
-    client->setGeometry(0, 50, 620, 370);
+    newAccueil();
+}
 
+
+/*
+ * Formulaire d'ajout d'un nouveau client
+ * WOBLESSE K. Déo Gratias
+ * 09 juillet 2023
+*/
+void MyWindow::newClient(){
+    centralWidget = new UpdateClient();
+    this->setCentralWidget(centralWidget);
+    centralWidget->show();
+}
+
+/*
+ * Accueil de l'application
+ * WOBLESSE K. Déo Gratias
+ * 09 juillet 2023
+*/
+void MyWindow::newAccueil(){
+    centralWidget = new OngletFichier();
+    this->setCentralWidget(centralWidget);
+    centralWidget->show();
 }

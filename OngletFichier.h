@@ -7,7 +7,7 @@
 class OngletFichier : public QWidget{
 
     public:
-        OngletFichier(QWidget *parent);
+        OngletFichier(QWidget *parent = nullptr);
     private:
         QLabel *bienvenuTexte;
 

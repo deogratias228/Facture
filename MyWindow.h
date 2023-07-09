@@ -3,8 +3,10 @@
 
 #include <QWidget>
 #include <QMenuBar>
+#include <QMainWindow>
+#include <QStatusBar>
 
-class MyWindow : public QWidget{
+class MyWindow : public QMainWindow {
     Q_OBJECT
 
     public:
@@ -12,6 +14,25 @@ class MyWindow : public QWidget{
 
     private:
         QMenuBar *menuBar;
+        QWidget *centralWidget;
+        QStatusBar *bottomBar;
+
+        QMenu *menuFichier;
+        QMenu *menuUpdate;
+        QMenu *menuEdit;
+
+        QAction *actionQuitter;
+        QAction *actionArticle;
+        QAction *actionClient;
+        QAction *actionFacture;
+        QAction *actionListeArticle;
+        QAction *actionListeClient;
+
+
+    private slots:
+        void newClient();
+        void newAccueil();
+
 };
 
 #endif // MYWINDOW_H
