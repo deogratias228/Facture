@@ -32,6 +32,7 @@ class MyWindow : public QMainWindow {
     private slots:
         void newClient();
         void newAccueil();
+        void newArticle();
 
 };
 

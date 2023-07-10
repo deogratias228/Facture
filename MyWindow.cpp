@@ -1,6 +1,7 @@
 #include "MyWindow.h"
 #include "OngletFichier.h"
 #include "UpdateClient.h"
+#include "UpdateArticle.h"
 
 #include <QMenu>
 #include <QAction>
@@ -48,7 +49,7 @@ MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
 
     // partie de test
 
-    newAccueil();
+    newArticle();
 }
 
 
@@ -60,8 +61,9 @@ MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
 void MyWindow::newClient(){
     centralWidget = new UpdateClient();
     this->setCentralWidget(centralWidget);
-    centralWidget->show();
+    //centralWidget->show();
 }
+
 
 /*
  * Accueil de l'application
@@ -71,5 +73,14 @@ void MyWindow::newClient(){
 void MyWindow::newAccueil(){
     centralWidget = new OngletFichier();
     this->setCentralWidget(centralWidget);
-    centralWidget->show();
+    //centralWidget->show();
+}
+
+/** Ajout d'un nouveau article
+ * Ce 10 juillet 2023
+*/
+void MyWindow::newArticle(){
+    centralWidget = new UpdateArticle();
+    this->setCentralWidget(centralWidget);
+    //centralWidget->show();
 }
