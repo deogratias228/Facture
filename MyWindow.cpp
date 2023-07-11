@@ -3,6 +3,7 @@
 #include "UpdateClient.h"
 #include "UpdateArticle.h"
 
+#include <QApplication>
 #include <QMenu>
 #include <QAction>
 #include <QMainWindow>
@@ -14,12 +15,11 @@
 */
 MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
 
+    menuBar = new QMenuBar();
     // Quelques paramétrages perso
+    this->setMenuBar(menuBar);
     this->setMinimumSize(620, 420);
 
-    // La barre de menu
-    menuBar = new QMenuBar();
-    this->setMenuBar(menuBar);
 
     // Les menus de la menuBar
     menuFichier = new QMenu("Fichier");
@@ -39,24 +39,31 @@ MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
     actionListeClient = menuEdit->addAction("Liste Clients");
 
 
+    // Le centralWidget par défaut réduit à l'accuiel
+    newAccueil();
     // Connexion des slots aux actions
-    //QObject::connect(actionQuitter, SIGNAL(clicked), QApplication:, SLOT(quit()));
+    QObject::connect(actionArticle, &QAction::triggered, this, &MyWindow::newArticle);
+    QObject::connect(actionClient, &QAction::triggered, this, &MyWindow::newClient);
+    QObject::connect(actionQuitter, &QAction::triggered, this, &MyWindow::quitter);
 
     // Ajout des Menu au menuBar
     menuBar->addMenu(menuFichier);
     menuBar->addMenu(menuUpdate);
     menuBar->addMenu(menuEdit);
 
-    // partie de test
-
-    newArticle();
 }
 
 
-/*
- * Formulaire d'ajout d'un nouveau client
- * WOBLESSE K. Déo Gratias
- * 09 juillet 2023
+/* * Le slot "quitter"
+ * WOBLESSE K. Déo Gratias, ce 09 juillet 2023
+*/
+void MyWindow::quitter(){
+    QApplication::quit();
+}
+
+
+/* * Formulaire d'ajout d'un nouveau client
+ * WOBLESSE K. Déo Gratias, ce 09 juillet 2023
 */
 void MyWindow::newClient(){
     centralWidget = new UpdateClient();
@@ -65,10 +72,8 @@ void MyWindow::newClient(){
 }
 
 
-/*
- * Accueil de l'application
- * WOBLESSE K. Déo Gratias
- * 09 juillet 2023
+/* * Accueil de l'application
+ * WOBLESSE K. Déo Gratias, ce 09 juillet 2023
 */
 void MyWindow::newAccueil(){
     centralWidget = new OngletFichier();
@@ -76,11 +81,27 @@ void MyWindow::newAccueil(){
     //centralWidget->show();
 }
 
+
 /** Ajout d'un nouveau article
- * Ce 10 juillet 2023
+ * WOBLESSE K. Déo Gratias, ce 10 juillet 2023
 */
 void MyWindow::newArticle(){
     centralWidget = new UpdateArticle();
     this->setCentralWidget(centralWidget);
     //centralWidget->show();
+}
+
+
+/** Lister les articles
+ *  WOBLESSE K. Déo Gratias,ce 11 juillet 2023
+*/
+void MyWindow::listerArticle(){
+
+}
+
+/** Lister les clients
+ *  WOBLESSE K. Déo Gratias,ce 11 juillet 2023
+*/
+void MyWindow::listerClients(){
+
 }

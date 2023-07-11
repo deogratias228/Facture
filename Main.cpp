@@ -1,6 +1,5 @@
 #include <QApplication>
 #include "MyWindow.h"
-#include "UpdateClient.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -9,5 +8,6 @@ int main(int argc, char *argv[]) {
     mainWindow.show();
 
     return app.exec();
+
 }
 

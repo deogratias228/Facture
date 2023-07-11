@@ -30,9 +30,12 @@ class MyWindow : public QMainWindow {
 
 
     private slots:
-        void newClient();
+        void quitter();
         void newAccueil();
+        void newClient();
         void newArticle();
+        void listerArticle();
+        void listerClients();
 
 };
 
