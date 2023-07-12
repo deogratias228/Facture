@@ -2,6 +2,8 @@
 #include "OngletFichier.h"
 #include "UpdateClient.h"
 #include "UpdateArticle.h"
+#include "EditArticle.h"
+#include "EditClient.h"
 
 #include <QApplication>
 #include <QMenu>
@@ -13,12 +15,14 @@
  * WOBLESSE K. Déo Gratias
  * 07 juillet 2023
 */
+
 MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
 
     menuBar = new QMenuBar();
     // Quelques paramétrages perso
     this->setMenuBar(menuBar);
     this->setMinimumSize(620, 420);
+    this->setWindowTitle("Gestion des factures");
 
 
     // Les menus de la menuBar
@@ -42,9 +46,10 @@ MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
     // Le centralWidget par défaut réduit à l'accuiel
     newAccueil();
     // Connexion des slots aux actions
+    QObject::connect(actionQuitter, &QAction::triggered, this, &MyWindow::quitter);
     QObject::connect(actionArticle, &QAction::triggered, this, &MyWindow::newArticle);
     QObject::connect(actionClient, &QAction::triggered, this, &MyWindow::newClient);
-    QObject::connect(actionQuitter, &QAction::triggered, this, &MyWindow::quitter);
+    QObject::connect(actionListeArticle, &QAction::triggered, this, &MyWindow::listerArticle);
 
     // Ajout des Menu au menuBar
     menuBar->addMenu(menuFichier);
@@ -96,7 +101,8 @@ void MyWindow::newArticle(){
  *  WOBLESSE K. Déo Gratias,ce 11 juillet 2023
 */
 void MyWindow::listerArticle(){
-
+    centralWidget = new EditArticle();
+    this->setCentralWidget(centralWidget);
 }
 
 /** Lister les clients

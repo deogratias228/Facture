@@ -13,6 +13,7 @@ class UpdateArticle : public QWidget{
 
 public:
     UpdateArticle(QWidget *parent = nullptr);
+    void cleanFormulaire();
 
 private:
     QLineEdit *lineEditReference;
@@ -23,6 +24,16 @@ private:
     QPushButton *btnAnnuler;
     QPushButton *btnValider;
     QStatusBar *statusBar;
+
+    QString reference;
+    QString libelle;
+    QString categorie;
+    double prix;
+
+
+private slots:
+    void submit();
+    void cancel();
 };
 
 #endif // UPDATEARTICLE_H

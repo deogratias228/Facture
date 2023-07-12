@@ -2,6 +2,8 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QFormLayout>
+#include <QSqlQuery>
+#include <QMessageBox>
 
 UpdateArticle::UpdateArticle(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *layout = new QVBoxLayout;
@@ -19,6 +21,8 @@ UpdateArticle::UpdateArticle(QWidget *parent) : QWidget(parent) {
     lineEditLibelle = new QLineEdit();
     lineEditCategorie = new QLineEdit();
     spinBoxPrix = new QDoubleSpinBox();
+    spinBoxPrix->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    spinBoxPrix->setRange(1.00, 999999.99);
 
     QFormLayout *formLayout = new QFormLayout;
     formLayout->setContentsMargins(90, 15, 90, 10);
@@ -45,6 +49,45 @@ UpdateArticle::UpdateArticle(QWidget *parent) : QWidget(parent) {
 
     this->setLayout(layout);
 
+
+
+    QObject::connect(btnValider, &QPushButton::clicked, this, &UpdateArticle::submit);
+    QObject::connect(btnAnnuler, &QPushButton::clicked, this, &UpdateArticle::cancel);
+
+
 }
 
+void UpdateArticle::cleanFormulaire() {
+    lineEditReference->setText("");
+    lineEditLibelle->setText("");
+    lineEditCategorie->setText("");
+    spinBoxPrix->setValue(0.00);
+}
+
+void UpdateArticle::submit() {
+    reference = lineEditReference->text();
+    libelle = lineEditLibelle->text();
+    categorie = lineEditCategorie->text();
+    prix = spinBoxPrix->value();
+
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO article(reference, libelle, categorie, prix) VALUES (:reference,:libelle,:categorie,:prix)");
+    query.bindValue(":reference", reference);
+    query.bindValue(":libelle", libelle);
+    query.bindValue(":categorie", categorie);
+    query.bindValue(":prix", prix);
+
+    if (query.exec())
+        QMessageBox::information(nullptr, tr("Operation validée "),
+                                 tr("Vous avez inséré ")+ reference + " " +libelle + tr(" de la catégorie ") + categorie + tr(" avec succès"));
+    else
+        //QMessageBox::critical(nullptr, tr("Avertissement"), query->last().text());
+        QMessageBox::critical(nullptr, tr(" Avertissement"), tr("Echec de l'insertion de ") + reference + " " +libelle + tr(" de la catégorie ") + categorie);
+    cleanFormulaire();
+}
+
+void UpdateArticle::cancel() {
+    cleanFormulaire();
+}
 
