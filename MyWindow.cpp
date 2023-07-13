@@ -4,6 +4,7 @@
 #include "UpdateArticle.h"
 #include "EditArticle.h"
 #include "EditClient.h"
+#include "ListeArticle.h"
 
 #include <QApplication>
 #include <QMenu>
@@ -101,7 +102,7 @@ void MyWindow::newArticle(){
  *  WOBLESSE K. Déo Gratias,ce 11 juillet 2023
 */
 void MyWindow::listerArticle(){
-    centralWidget = new EditArticle();
+    centralWidget = new ListeArticle();
     this->setCentralWidget(centralWidget);
 }
 

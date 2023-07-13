@@ -91,3 +91,5 @@ void UpdateArticle::cancel() {
     cleanFormulaire();
 }
 
+
+

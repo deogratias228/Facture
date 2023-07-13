@@ -10,18 +10,29 @@
 class UpdateClient : public QWidget {
     public:
         UpdateClient(QWidget *parent = nullptr);
+        void cleanFormulaire();
     private:
-        QSpinBox *lineEditNumClient;
+        QSpinBox *SpinBoxNumClient;
         QLineEdit *lineEditNom;
         QLineEdit *lineEditPrenom;
         QLineEdit *lineEditQuartier;
         QLineEdit *lineEditRue;
-        QSpinBox *lineEditNumMaison;
+        QSpinBox *SpinBoxNumMaison;
+
+        int numClient;
+        QString nom;
+        QString prenom;
+        QString quartier;
+        QString rue;
+        int numMaison;
 
         QPushButton *btnAnnuler;
         QPushButton *btnValider;
-
         QStatusBar *statusBar;
+
+    private slots:
+        void submit();
+        void cancel();
 
 };
 

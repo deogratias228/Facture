@@ -34,6 +34,7 @@ private:
 private slots:
     void submit();
     void cancel();
+    //void actSelection();
 };
 
 #endif // UPDATEARTICLE_H
