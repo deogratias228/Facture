@@ -1,4 +1,5 @@
-#include "ListeArticle.h"
+#include "ListeClient.h"
+
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QFormLayout>
@@ -9,19 +10,22 @@
 #include <QLabel>
 #include <QLineEdit>
 
-
-ListeArticle::ListeArticle() : QWidget() {
-
+ListeClient::ListeClient(QWidget *parent) : QWidget(parent)
+  /*But: Afficher la liste des clients
+  * Date: 14 juillet 2023
+  * Auteurs: AYEWA Dyanatou & WOBLESSE K. Déo
+  */
+{
     QVBoxLayout *layout = new QVBoxLayout;
     QHBoxLayout *layoutSearch = new QHBoxLayout;
     QFormLayout *formLayout = new QFormLayout;
     QHBoxLayout *descriptLayout = new QHBoxLayout;
-    QLabel *descript = new QLabel("Liste des articles");
+    QLabel *descript = new QLabel("Liste des clients");
     descript->setStyleSheet("font-size: 30px; font-family: 'Times New Roman'; font-weight: bold;");
     descriptLayout->addWidget(descript);
     descriptLayout->setAlignment(Qt::AlignHCenter);
     editSearch = new QLineEdit;
-    formLayout->addRow(tr("<span style=\"font-size: 25px; font-family: 'Times New Roman'; font-weight: bold;\">Filtre sur libellé</span>"), editSearch);
+    formLayout->addRow(tr("<span style=\"font-size: 20px; font-family: 'Times New Roman'; font-weight: bold;\">Filtre sur Nom Prenom</span>"), editSearch);
     layoutSearch->addSpacing(800);
     layoutSearch->addLayout(formLayout);
     formLayout->setContentsMargins(0, 20, 20, 10);
@@ -31,13 +35,15 @@ ListeArticle::ListeArticle() : QWidget() {
 
     // Le model
     modele = new QSqlTableModel(this);
-    modele->setTable("article");
+    modele->setTable("client");
     modele->setEditStrategy(QSqlTableModel::OnManualSubmit);
     modele->setSort(0, Qt::AscendingOrder);
-    modele->setHeaderData(0, Qt::Horizontal, tr("Reférence"));
-    modele->setHeaderData(1, Qt::Horizontal, tr("libelle"));
-    modele->setHeaderData(2, Qt::Horizontal, tr("Catégorie"));
-    modele->setHeaderData(3, Qt::Horizontal, tr("Prix"));
+    modele->setHeaderData(0, Qt::Horizontal, tr("N° Client"));
+    modele->setHeaderData(1, Qt::Horizontal, tr("Nom du client"));
+    modele->setHeaderData(2, Qt::Horizontal, tr("Prénom du client"));
+    modele->setHeaderData(3, Qt::Horizontal, tr("Quartier "));
+    modele->setHeaderData(4, Qt::Horizontal, tr("Rue "));
+    modele->setHeaderData(5, Qt::Horizontal, tr("N° Maison "));
     modele->select();
 
     // La vue (le widget pour l'affichage)
@@ -60,21 +66,17 @@ ListeArticle::ListeArticle() : QWidget() {
     this->setLayout(layout);
 
     view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    //QObject::connect(editSearch, SIGNAL(textChanged(QString)), this, SLOT(&ListeArticle::actFiltre(QString)));
-    QObject::connect(editSearch, &QLineEdit::textChanged, this, &ListeArticle::actFiltre);
-
+    QObject::connect(editSearch, &QLineEdit::textChanged, this, &ListeClient::actFiltre);
 }
 
 
-void ListeArticle::actFiltre(const QString& filtre)
+void ListeClient::actFiltre(const QString& filtre)
 /*  But     : Faire un filtre sur les libellés
  *  Auteurs : AYEWA Dyanatou & WOBLESSE K. Déo Gratias
  *  Date    : 14 juillet 2023
  */
 {
-    modele->setFilter("libelle LIKE '%"+filtre+"%'");
+    modele->setFilter("nom LIKE '%"+filtre+"%' OR prenom LIKE '%"+filtre+"%'");
     modele->setSort(2, Qt::AscendingOrder);
     modele->select();
-}//void ListeArticle::actFiltre(QString filtre)
-
-
+}//void ListeClient::actFiltre(QString filtre)

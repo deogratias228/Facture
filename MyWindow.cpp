@@ -5,6 +5,8 @@
 #include "EditArticle.h"
 #include "EditClient.h"
 #include "ListeArticle.h"
+#include "ListeClient.h"
+#include "FactureForm.h"
 
 #include <QApplication>
 #include <QMenu>
@@ -50,7 +52,9 @@ MyWindow::MyWindow(QWidget *parent) : QMainWindow(parent) {
     QObject::connect(actionQuitter, &QAction::triggered, this, &MyWindow::quitter);
     QObject::connect(actionArticle, &QAction::triggered, this, &MyWindow::newArticle);
     QObject::connect(actionClient, &QAction::triggered, this, &MyWindow::newClient);
+    QObject::connect(actionFacture, &QAction::triggered, this, &MyWindow::newFacture);
     QObject::connect(actionListeArticle, &QAction::triggered, this, &MyWindow::listerArticle);
+    QObject::connect(actionListeClient, &QAction::triggered, this, &MyWindow::listerClients);
 
     // Ajout des Menu au menuBar
     menuBar->addMenu(menuFichier);
@@ -97,6 +101,10 @@ void MyWindow::newArticle(){
     //centralWidget->show();
 }
 
+void MyWindow::newFacture(){
+    centralWidget = new FactureForm();
+    this->setCentralWidget(centralWidget);
+}
 
 /** Lister les articles
  *  WOBLESSE K. Déo Gratias,ce 11 juillet 2023
@@ -110,5 +118,7 @@ void MyWindow::listerArticle(){
  *  WOBLESSE K. Déo Gratias,ce 11 juillet 2023
 */
 void MyWindow::listerClients(){
-
+    centralWidget = new ListeClient();
+    this->setCentralWidget(centralWidget);
 }
+

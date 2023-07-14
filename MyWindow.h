@@ -33,6 +33,7 @@ class MyWindow : public QMainWindow {
         void quitter();
         void newAccueil();
         void newClient();
+        void newFacture();
         void newArticle();
         void listerArticle();
         void listerClients();

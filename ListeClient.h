@@ -1,5 +1,5 @@
-#ifndef LISTEARTICLE_H
-#define LISTEARTICLE_H
+#ifndef LISTECLIENT_H
+#define LISTECLIENT_H
 
 #include <QWidget>
 #include <QSqlTableModel>
@@ -9,19 +9,14 @@
 #include <QPushButton>
 #include <QDialogButtonBox>
 #include <QHBoxLayout>
-#include <QString>
 
-class ListeArticle : public QWidget {
-
-    //Q_OBJECT
-public:
-    ListeArticle();
-
+class ListeClient : public QWidget
+{
 private:
     QLabel *lblTitle;
     QLineEdit *editSearch;
-    QPushButton *quitButton;
-    QPushButton *btnAfficher;
+    //QPushButton *quitButton;
+    //QPushButton *btnAfficher;
     QHBoxLayout *hbOperation;
     QVBoxLayout *viewLayout;
     QDialogButtonBox *buttonBox;
@@ -29,10 +24,10 @@ private:
     QTableView *view;
 
  public slots:
-    //void actFiltre(QString filtre);
-    void actSelection();
     void actFiltre(const QString& filtre);
-
+    void actSelection();
+ public:
+    ListeClient(QWidget *parent = nullptr);
 };
 
-#endif // LISTEARTICLE_H
+#endif // LISTECLIENT_H
