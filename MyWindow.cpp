@@ -6,7 +6,7 @@
 #include "EditClient.h"
 #include "ListeArticle.h"
 #include "ListeClient.h"
-#include "FactureForm.h"
+#include "UpdateFacture.h"
 
 #include <QApplication>
 #include <QMenu>
