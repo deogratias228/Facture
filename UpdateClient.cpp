@@ -10,9 +10,9 @@
 #include <QSqlQuery>
 #include <QMessageBox>
 
-/* Pour l'ajout d'un nouveau client
- * WOBLESSE K. Déo Gratias
- * 08 juillet 2023
+/* But:     L'enregistrement d'un nouveau client
+ * Auteurs: AYEWA & WOBLESSE
+ * Date:    08 juillet 2023
 */
 UpdateClient::UpdateClient(QWidget *parent) : QWidget(parent){
 
@@ -29,9 +29,10 @@ UpdateClient::UpdateClient(QWidget *parent) : QWidget(parent){
     layout->addLayout(layoutDescription);
 
     // Le formulaire
-    SpinBoxNumClient = new QSpinBox();
-    SpinBoxNumClient->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    SpinBoxNumClient->setReadOnly(true);
+    spinBoxNumClient = new QSpinBox();
+    spinBoxNumClient->setValue(numeroClient());
+    spinBoxNumClient->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    spinBoxNumClient->setReadOnly(true);
     lineEditNom = new QLineEdit();
     lineEditPrenom = new QLineEdit();
     lineEditQuartier = new QLineEdit();
@@ -42,7 +43,7 @@ UpdateClient::UpdateClient(QWidget *parent) : QWidget(parent){
 
     QFormLayout *layoutForm = new QFormLayout;
     layoutForm->setContentsMargins(90, 15, 90, 10);
-    layoutForm->addRow(labelForm("N°"), SpinBoxNumClient);
+    layoutForm->addRow(labelForm("N°"), spinBoxNumClient);
     layoutForm->addRow(tr("<font size='5' face='Arial' style='italic'>&Nom : </font>"), lineEditNom);
     layoutForm->addRow(tr("<font size='5' face='Arial' style='italic'>&Prénoms : </font>"), lineEditPrenom);
     layoutForm->addRow(tr("<font size='5' face='Arial' style='italic'>&Quartier : </font>"), lineEditQuartier);
@@ -78,8 +79,8 @@ UpdateClient::UpdateClient(QWidget *parent) : QWidget(parent){
 
 void UpdateClient::cleanFormulaire()
 /* But: Réinitialiser le formulaire
+* Auteurs: AYEWA & WOBLESSE
 * Date: 13 juillet 2023
-* Auteur: WOBLESSE K. Déo Gratias
 */
 {
     //SpinBoxNumClient->setValue(SpinBoxNumClient->value() + 1);
@@ -90,8 +91,30 @@ void UpdateClient::cleanFormulaire()
     SpinBoxNumMaison->setValue(0);
 }
 
+int UpdateClient::numeroClient()
+/*But    : le numero du client en cours d'enregistrement
+* Auteurs: AYEWA & WOBLESSE
+* Date   : 15juillet
+*/
+{
+    int numClient(0);
 
-void UpdateClient::submit(){
+    QSqlQuery query;
+    query.exec("SELECT numero_client FROM client ORDER BY numero_client DESC LIMIT 1");
+
+    if(query.next())
+        numClient = query.value(0).toInt();
+
+    return numClient + 1;
+}
+
+
+void UpdateClient::submit()
+/*But    : Le slot qui envoie le nouveau client dans la base
+* Auteurs: AYEWA & WOBLESSE
+* Date   : 13 juillet 2023
+*/
+{
     nom = lineEditNom->text();
     prenom = lineEditPrenom->text();
     quartier = lineEditQuartier->text();
@@ -118,7 +141,7 @@ void UpdateClient::submit(){
 
 QString labelForm(QString lib)
 /* Raccourcir la mise en forme des labels du formulaire.
-*  Déo Gratias
+*  Auteurs: AYEWA & WOBLESSE
 *  10 juillet 2023
 */
 {
@@ -129,4 +152,5 @@ QString labelForm(QString lib)
 
     return str1;
 }
+
 

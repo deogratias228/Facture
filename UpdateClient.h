@@ -11,8 +11,9 @@ class UpdateClient : public QWidget {
     public:
         UpdateClient(QWidget *parent = nullptr);
         void cleanFormulaire();
+        int numeroClient();
     private:
-        QSpinBox *SpinBoxNumClient;
+        QSpinBox *spinBoxNumClient;
         QLineEdit *lineEditNom;
         QLineEdit *lineEditPrenom;
         QLineEdit *lineEditQuartier;

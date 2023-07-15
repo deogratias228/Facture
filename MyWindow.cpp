@@ -102,7 +102,8 @@ void MyWindow::newArticle(){
 }
 
 void MyWindow::newFacture(){
-    centralWidget = new FactureForm();
+    centralWidget = new UpdateFacture();
+    this->setMinimumWidth(750);
     this->setCentralWidget(centralWidget);
 }
 

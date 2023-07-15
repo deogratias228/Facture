@@ -5,26 +5,41 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QSpinBox>
+#include <QDoubleSpinBox>
 #include <QComboBox>
+#include <QPushButton>
 
-class FactureForm : public QWidget
+class UpdateFacture : public QWidget
 {
     Q_OBJECT
 
 public:
-    FactureForm(QWidget *parent = nullptr);
+    UpdateFacture(QWidget *parent = nullptr);
+    int numeroFacture();
+    bool saveFactureDetail(int index);
+    bool saveFacture();
 
 private:
-    QLabel *labelArticle[10];
+    QLabel *labelArticle;
+    QLabel *labelQuantite;
+    QLabel *labelTotal;
     QComboBox *comboBoxArticle[10];
-    QLabel *labelQuantite[10];
+    QComboBox *comboBoxClient;
     QSpinBox *spinBoxQuantite[10];
-    QLabel *labelTotal[10];
-    QSpinBox *spinBoxTotal[10];
+    QSpinBox *spinBoxMontant[10];
+    QDoubleSpinBox *spinBoxTotal;
+    QDoubleSpinBox *spinBoxTVA;
+    QDoubleSpinBox *spinBoxTotalTTC;
+    QLabel *labArticle[10];
+    QPushButton *btnEnregistrer;
 
 private slots:
-    void updateTotal(int newValue, int index);
+    void updateMontant(int newValue, int index);
+    void updateTotal();
+    void updateTotalTTC();
     void loadArticleOptions(QComboBox *comboBox);
+    void loadClientOptions(QComboBox *comboBox);
+    void enregistrer();
 
 };
 
